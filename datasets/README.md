@@ -20,7 +20,7 @@ datasets/ibm-aml-medium/HI-Medium_Trans.csv
 datasets/ibm-aml-li/LI-Small_Trans.csv
 ```
 
-The manifest also records `ibm-aml/pattern_labels.csv`, an optional sidecar in the original local research package. It is not needed by the released full-model CLI and need not be recreated.
+The manifest also records optional `ibm-aml/pattern_labels.csv`. The full-model command-line workflow does not require this file.
 
 ## Sparkov
 

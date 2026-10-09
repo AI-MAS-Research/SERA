@@ -18,7 +18,7 @@ SERA/
 `-- README.md
 ```
 
-## Installation
+## Requirements
 
 Use Python 3.10 and install the dependencies:
 
@@ -32,7 +32,7 @@ The tested dependency versions are listed in [requirements-tested.txt](requireme
 
 Follow [datasets/README.md](datasets/README.md) to prepare BankSim, Sparkov, IEEE-CIS, and the three IBM-AML datasets. Transaction data is downloaded separately. Expected CSV schemas and reference checksums are included under `datasets/`.
 
-## Running the model
+## Quick start
 
 List available datasets and check imports and configuration:
 
@@ -60,7 +60,20 @@ For a smaller functional run:
 python main.py --dataset banksim --window-rows 20000 --output outputs/smoke
 ```
 
-Changing `--window-rows` changes the evaluation protocol. `--check-only` checks imports and configuration without training; `--verify-data` verifies the CSV header, size, and SHA-256. Run `python main.py --help` for all options.
+## Main options
+
+| Option | Purpose |
+|---|---|
+| `--dataset` | `banksim`, `sparkov`, `ieee-cis`, `ibm-aml`, `ibm-aml-medium`, or `ibm-aml-li` |
+| `--datasets-dir` | Dataset root; defaults to `datasets/` |
+| `--seed` | Random seed; default `2026` |
+| `--output` | Directory for reports and cached data |
+| `--window-rows` | Override the number of transactions in the evaluation window |
+| `--list-datasets` | List supported datasets |
+| `--check-only` | Check imports and configuration without training |
+| `--verify-data` | Verify the CSV header, size, and SHA-256 |
+
+Changing `--window-rows` changes the evaluation protocol. Run `python main.py --help` for all options.
 
 ## Model components
 
@@ -72,7 +85,7 @@ Changing `--window-rows` changes the evaluation protocol. `--check-only` checks 
 
 The implementation is in `model/SERA.py`. Import `SERA` with `from model import SERA`; `SERA(config).fit_evaluate(workspace)` runs the pipeline. The command-line entry prepares the workspace automatically. This entry point uses local numerical models; external LLM orchestration is not included.
 
-## Configuration and evaluation
+## Evaluation
 
 Dataset-specific parameters are stored in `training/configs/datasets.json`. Data is divided chronologically into training, tuning, calibration, and test segments. Preprocessing is fitted on the training segment, and model selection uses the tuning segment.
 
